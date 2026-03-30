@@ -1,4 +1,9 @@
 var AREA = 300
+var COLORS = ["red", "orange", "yellow","green", "blue", "purple", "violet"]
+function randomColor(){
+    var index = Math.floor(Math.random() * COLORS.length)
+    return COLORS[index]
+}
 function createBox(n = 16){
     let box = document.createElement("div")
     box.addEventListener("mouseover", (event) => {
@@ -49,6 +54,7 @@ window.addEventListener("load", () => {
 
 var size = document.querySelector(".size-setter")
 var clear = document.querySelector(".clear")
+var rainbow = document.querySelector(".rainbow")
 size.addEventListener("click", () => {
    let size = prompt("Please enter a size between 1 and 100")
    var area = document.querySelector(".area")
@@ -59,5 +65,16 @@ clear.addEventListener("click", () => {
     var boxes = document.querySelectorAll(".box")
     boxes.forEach((box) => {
         box.style.backgroundColor = "white"
+    })
+})
+rainbow.addEventListener("click", () => {
+    var boxes = document.querySelectorAll(".box")
+    boxes.forEach((box) => {
+        box.removeEventListener("mouseover", (event) => {
+        event.target.style.backgroundColor = "blue"
+    })
+        box.addEventListener("mouseover", (event) => {
+        event.target.style.backgroundColor = randomColor()
+    })
     })
 })
