@@ -1,2 +1,37 @@
-body {
+.body {
+  
+}
+h1 {
+   text-align: center;
+   font-family: 'Courier New', Courier, monospace;
+}
+button {
+    background-color:aquamarine;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: violet;
+    font-weight: bolder;
+    font-family: 'Courier New', Courier, monospace;
+}
+.outer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+   
+  
+}
+.button-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    order:1
+}
+.row {
+    width: fit-content;
 }
