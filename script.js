@@ -3,7 +3,6 @@ var COLORS = ["red", "orange", "yellow", "green", "blue", "purple", "violet"];
 
 function createBox(n = 16) {
   let box = document.createElement("div");
-  // box.addEventListener("mousedown", paint)
 
   //constrain box size to area
   var size = AREA / n;
@@ -22,21 +21,21 @@ function createRow() {
 }
 function initalizeSketchArea() {
   let area = document.createElement("div");
-  let container = document.querySelector(".container")
+  let container = document.querySelector(".container");
   area.className = "area";
 
   container.append(area);
   return area;
 }
-var mousedown = false
+var mousedown = false;
 function paint(event, color = "blue") {
-    var area = document.querySelector(".area");
-    area.onmousedown = () => (mousedown = true);
-    area.onmouseup = () => (mousedown = false);
-    if (event.type === "mouseover" && !mousedown) return;
-    else {
-      event.target.style.backgroundColor = color;
-    }
+  var area = document.querySelector(".area");
+  area.onmousedown = () => (mousedown = true);
+  area.onmouseup = () => (mousedown = false);
+  if (event.type === "mouseover" && !mousedown) return;
+  else {
+    event.target.style.backgroundColor = color;
+  }
 }
 function createAllBoxes(size = 16) {
   var area = document.querySelector(".area");
@@ -50,18 +49,16 @@ function createAllBoxes(size = 16) {
     }
     area.append(row);
   }
-var boxes = document.querySelectorAll(".box")
+  var boxes = document.querySelectorAll(".box");
   boxes.forEach((box) => {
-    box.addEventListener("mousedown", paint)
-    box.addEventListener("mouseover", paint)
-  })
+    box.addEventListener("mousedown", paint);
+    box.addEventListener("mouseover", paint);
+  });
 }
-
 
 window.addEventListener("load", () => {
   initalizeSketchArea();
   createAllBoxes();
-  
 });
 
 function randomColor() {
@@ -72,25 +69,42 @@ function randomColor() {
 var size = document.querySelector(".size-setter");
 var clear = document.querySelector(".clear");
 var rainbow = document.querySelector(".rainbow");
+var original = document.querySelector(".original");
+// Change Size
 size.addEventListener("click", () => {
   let size = prompt("Please enter a size between 1 and 100");
   var area = document.querySelector(".area");
   area.replaceChildren();
   createAllBoxes(Number(size));
 });
+// Clear Boxes
 clear.addEventListener("click", () => {
   var boxes = document.querySelectorAll(".box");
   boxes.forEach((box) => {
     box.style.backgroundColor = "white";
   });
 });
+// Change to Rainbow Colors
 rainbow.addEventListener("click", () => {
   var boxes = document.querySelectorAll(".box");
   boxes.forEach((box) => {
-    box.removeEventListener("mousedown", paint)
-    box.removeEventListener("mouseover", paint)
-    box.addEventListener("mousedown", (event) => paint(event, randomColor()))
-    box.addEventListener("mouseover", (event) => paint(event, randomColor()))
-  })
-
+    box.removeEventListener("mousedown", paint);
+    box.removeEventListener("mouseover", paint);
+    box.addEventListener("mousedown", (event) => paint(event, randomColor()));
+    box.addEventListener("mouseover", (event) => paint(event, randomColor()));
+  });
+  // Change Back to Default Colors
+  original.addEventListener("click", () => {
+    var boxes = document.querySelectorAll(".box");
+    boxes.forEach((box) => {
+      box.removeEventListener("mousedown", (event) =>
+        paint(event, randomColor()),
+      );
+      box.removeEventListener("mouseover", (event) =>
+        paint(event, randomColor()),
+      );
+      box.addEventListener("mousedown", paint);
+      box.addEventListener("mouseover", paint);
+    });
+  });
 });
